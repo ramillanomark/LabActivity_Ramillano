@@ -1,0 +1,53 @@
+def tower_of_hanoi(n, source, destination, auxiliary):
+    
+    if n == 1:
+        print(f"Move disk 1 from rod {source} to rod {destination}")
+        return
+    
+    # Move n-1 disk
+    tower_of_hanoi(n-1, source, auxiliary, destination)
+    
+    # Move the largest disk from source to destination
+    print(f"Move disk {n} from rod {source} to rod {destination}")
+    
+    # Move n-1 disk
+    tower_of_hanoi(n-1, auxiliary, destination, source)
+
+def get_number_of_disks():
+    
+    while True:
+        try:
+            n = int(input("Enter the number of disks: "))
+            if n <= 0:
+                print("Please enter a positive integer (greater than 0).")
+                continue
+            return n
+        except ValueError:
+            print("Please enter a valid integer.")
+
+def main():
+    print("Tower of Hanoi Puzzle Solver")
+    print("=" * 30)
+    print("Rules:")
+    print("1. Only one disk can be moved at a time")
+    print("2. Only the uppermost disk can be moved")
+    print("3. No disk may be placed on top of a smaller disk")
+    print("4. Rods are named A, B, and C")
+    print("-" * 30)
+    
+    # Get number of disks
+    n = get_number_of_disks()
+    
+    print(f"\nSolution for {n} disks:")
+    print("Moving all disks from rod A to rod C using rod B as auxiliary:")
+    print()
+    
+    # Solve the puzzle
+    tower_of_hanoi(n, 'A', 'C', 'B')
+    
+    # Calculate total moves
+    total_moves = (2 ** n) - 1
+    print(f"\nTotal moves required: {total_moves}")
+
+if __name__ == "__main__":
+    main()
